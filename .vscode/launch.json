@@ -48,6 +48,20 @@
           "program": "${env:HOME}/lib/node_modules/allextesting/commandline/allex-mocha",
         },
         "args": ["test/test.doublebuffering.js"]
-      }      
+      },{
+        "type": "node",
+        "request": "launch",
+        "name": "Test DynaBuffer",
+        "skipFiles": [
+          "<node_internals>/**"
+        ],
+        "windows": {
+          "program": "${env:APPDATA}/npm/node_modules/allextesting/commandline/allex-mocha",
+        },
+        "linux": {
+          "program": "${env:HOME}/lib/node_modules/allextesting/commandline/allex-mocha",
+        },
+        "args": ["test/test.dynabuffer.js"]
+      }
     ]
 }
