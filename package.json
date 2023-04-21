@@ -1,0 +1,25 @@
+{
+  "name": "allex__audio_bufferlib",
+  "version": "1.0.0",
+  "description": "AllexJS implementation of an Audio Buffer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allex-audio-libs/buffer.git"
+  },
+  "keywords": [
+    "ecosystem:AllexJS",
+    "audio",
+    "buffer",
+    "lib"
+  ],
+  "author": "Nadezdin Brat <razgar02@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/allex-audio-libs/buffer/issues"
+  },
+  "homepage": "https://github.com/allex-audio-libs/buffer#readme"
+}
