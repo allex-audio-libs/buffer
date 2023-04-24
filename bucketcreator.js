@@ -1,14 +1,16 @@
 function createBucket (lib, mylib) {
     'use strict';
 
+    var bucketLandfill = [];
+
     //single linked list => every bucket knows its previous or next
     //double linked list => every bucket knows both its previous and next
 
     //we're implementing a double linked list, after all
-    function Bucket (prev, next, contents) {
-        this.prev = prev;
-        this.next = next;
-        this.contents = contents;
+    function Bucket () {
+        this.prev = null;
+        this.next = null;
+        this.contents = null;
     }
     Bucket.prototype.destroy = function () {
         this.contents = null;
@@ -17,14 +19,37 @@ function createBucket (lib, mylib) {
         }
         this.next = null;
         this.prev = null;
+        bucketLandfill.push(this);
     };
+    //mylib.Bucket = Bucket;
 
-    mylib.Bucket = Bucket;
+    function produceBucket () {
+        var recycledbucket = bucketLandfill.pop();
+        if (recycledbucket) {
+            return recycledbucket;
+        }
+        return new Bucket();
+    }
+    function newBucketFor (prev, next, contents) {
+        var bckt = produceBucket();
+        bckt.prev = prev;
+        bckt.next = next;
+        bckt.contents = contents;
+        return bckt;
+    }
+    mylib.newBucketFor = newBucketFor;
+
+    function recycleBucket (bckt) {
+        bckt.next = null;
+        bckt.prev = null;
+        bckt.destroy();
+    }
+    mylib.recycleBucket = recycleBucket;
 
     function produceBuckets (length, contents) {
         var intrmdt = [], i;
         for (i=0; i<length; i++) {
-            intrmdt.push(new Bucket(null, null, contents));
+            intrmdt.push(newBucketFor(null, null, contents));
         }
         for (i=1; i<length; i++) {
             intrmdt[i].prev = intrmdt[i-1];
