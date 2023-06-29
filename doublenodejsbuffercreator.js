@@ -49,7 +49,11 @@ function createDoubleNodeJSBuffer (lib, mylib) {
         ];
         this.activeBuffer = 0;
         this.cursor = 0;
-        this.bufferReadyFunc = bufferreadyfunc;        
+        this.bufferReadyFunc = bufferreadyfunc;
+        
+        this.lastswitch = 0;
+        this.dur = 0;
+        this.speed = 0;
     }
     DoubleNodeJSBuffer.prototype.destroy = function () {
         this.bufferReadyFunc = null;
@@ -91,6 +95,11 @@ function createDoubleNodeJSBuffer (lib, mylib) {
         this.activeBuffer = (this.activeBuffer+1)%2;
         this.cursor = 0;
         this.bufferReadyFunc(buf);
+        if (this.lastswitch>0) {
+            this.dur = Date.now()-this.lastswitch;
+            this.speed = buf.length/(this.dur);
+        }
+        this.lastswitch = Date.now();
     };
 
     mylib.DoubleNodeJSBuffer = DoubleNodeJSBuffer;
